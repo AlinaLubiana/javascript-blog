@@ -1,0 +1,30 @@
+
+'use strict';
+
+function titleClickHandler(event){
+  console.log('Link was clicked!');
+
+  /* remove class 'active' from all article links 
+  видалити клас «активний» з усіх посилань на статті */
+
+  /* add class 'active' to the clicked link
+  додайте клас «активний» до натиснутого посилання */
+
+  /* remove class 'active' from all articles
+  видалити клас «активний» з усіх статей */
+
+  /* get 'href' attribute from the clicked link
+  отримати атрибут 'href' за натиснутим посиланням */
+
+  /* find the correct article using the selector (value of 'href' attribute)
+  знайти правильну статтю за допомогою селектора (значення атрибута 'href') */
+
+  /* add class 'active' to the correct article
+  додати клас "активний" до правильної статті */
+}
+
+const links = document.querySelectorAll('.titles a');
+
+for(let link of links){
+  link.addEventListener('click', titleClickHandler);
+}
