@@ -1,22 +1,28 @@
 'use strict';
 
 function titleClickHandler(event){
+  const clickedElement = this;
   console.log('Link was clicked!');
 
-  /* remove class 'active' from all article links 
+  /* [DONE] remove class 'active' from all article links 
   видалити клас «активний» з усіх посилань на статті */
-const activeLinks = document.querySelectorAll('.titles a.active');
+
+  const activeLinks = document.querySelectorAll('.titles a.active');
 
   for(let activeLink of activeLinks){
     activeLink.classList.remove('active');
   }
 
-  /* add class 'active' to the clicked link
+  /*[IN PROGRESS] add class 'active' to the clicked link
   додайте клас «активний» до натиснутого посилання */
 
-  /* remove class 'active' from all articles
+  clickedElement.classList.add('active');
+  console.log('clickedElement:', clickedElement);
+  
+  /*[DONE] remove class 'active' from all articles
   видалити клас «активний» з усіх статей */
-const activeArticles = document.querySelectorAll('article.post');
+
+  const activeArticles = document.querySelectorAll('article.post');
 
   for(let activeArticle of activeArticles){
     activeArticle.classList.remove('active');
