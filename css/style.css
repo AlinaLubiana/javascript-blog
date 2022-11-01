@@ -10,11 +10,14 @@ body {
   color: #444;
   font-weight: 300;
   font-size: 16px;
-  line-height: 1.7;
+  line-height: 1.7; 
 }
+
+
 .container {
   max-width: 1140px;
-  margin: 40px auto;
+  margin: auto;
+  
 }
 .section-title {
   font-size: 22px;
@@ -34,6 +37,7 @@ body {
 }
 .sidebar {
   flex: 1 0 0;
+  
 }
 .posts {
   flex: 2 0 0;
@@ -42,22 +46,33 @@ body {
   background: #fff;
   margin-right: 10px;
   padding: 40px;
-  border: 1px solid #444;
-  border-radius: 5px;
+  box-shadow: inset 0px 0px 10px rgba(0,0,0,0.3);
 }
+
+.sidebar:hover, .posts:hover {
+  background: rgba(0,0,0,0.1);
+  margin-right: 10px;
+  padding: 40px;
+  box-shadow:  inset 0px 0px 10px rgba(253, 253, 253, 0.959);
+  
+}
+
 /* Logo */
 .logo {
   font-family: "Sacramento", cursive;
   font-weight: 400;
-  font-size: 104px;
+  font-size: 80px;
   line-height: 1;
   text-align: center;
+  border-bottom-style: solid;
+  
 }
 /* Lists */
 .list {
   list-style-type: none;
   margin: 0;
   padding: 0;
+  
 }
 .list .active {
   font-weight: bold;
