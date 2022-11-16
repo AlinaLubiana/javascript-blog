@@ -1,7 +1,7 @@
 'use strict';
 
 function titleClickHandler(event){
- event.preventDefault(); /* щоб не змінювалась адреса сайту при натисканні на посиланння */
+  event.preventDefault(); /* щоб не змінювалась адреса сайту при натисканні на посиланння */
   const clickedElement = this;
   console.log('Link was clicked!');
   
