@@ -53,21 +53,58 @@ function titleClickHandler(event){
 
 }
 
-const links = document.querySelectorAll('.titles a');
 
-for(let link of links){
-  link.addEventListener('click', titleClickHandler);
-}
+
+
+const optArticleSelector = '.post',
+optTitleSelector = '.post-title',
+optTitleListSelector = '.titles',
+optArticleTagsSelector = '.post-tags .list';
+
+
+function generateTitleLinks(){
+
+  /* remove contents of titleList */
+  const titleList = document.querySelector(optTitleListSelector);
+  titleList.innerHTML = '';
+  
+  /* for each article */
+  const allArticles = document.querySelectorAll(optArticleSelector);
+  let html = '';
+  for(let article of allArticles){
+      /* get the article id */
+      const articleId = article.getAttribute('id')
+      console.log (articleId);
+      /* find the title element */
+      /* get the title from the title element */
+      const articleTitle = article.querySelector(optTitleSelector).innerHTML;
+      console.log (articleTitle);
+       /* create HTML of the link */
+      const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
+      console.log (linkHTML);
+      /* insert link into titleList */
+      html = html + linkHTML;
+      
+    }
+    console.log (html);
+    titleList.innerHTML = html;
+
+
+    /*Відновлення функціональності клацання посилань */
+    const links = document.querySelectorAll('.titles a');
+    for(let link of links){
+      link.addEventListener('click', titleClickHandler);
+    }
+  }
+generateTitleLinks();
+
+
+
+
 
 function generateTags(){
   /* find all articles 
   знайти всі статті*/
-
-  const optArticleSelector = '.post',
-    optTitleSelector = '.post-title',
-    optTitleListSelector = '.titles',
-    optArticleTagsSelector = '.post-tags .list';
-
 
   /* START LOOP: for every article: 
   ПОЧАТОК ЦИКЛУ: для кожної статті:*/
