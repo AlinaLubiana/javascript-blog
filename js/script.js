@@ -62,7 +62,7 @@ for(let link of links){
 function generateTags(){
   /* find all articles 
   знайти всі статті*/
-  
+
   const optArticleSelector = '.post',
     optTitleSelector = '.post-title',
     optTitleListSelector = '.titles',
@@ -71,6 +71,7 @@ function generateTags(){
 
   /* START LOOP: for every article: 
   ПОЧАТОК ЦИКЛУ: для кожної статті:*/
+  
 
     /* find tags wrapper
     обгортка пошуку тегів*/
