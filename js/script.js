@@ -57,45 +57,50 @@ function titleClickHandler(event){
 
 
 const optArticleSelector = '.post',
-optTitleSelector = '.post-title',
-optTitleListSelector = '.titles',
-optArticleTagsSelector = '.post-tags .list';
+  optTitleSelector = '.post-title',
+  optTitleListSelector = '.titles',
+  optArticleTagsSelector = '.post-tags .list';
 
 
 function generateTitleLinks(){
 
-  /* remove contents of titleList */
+  /* remove contents of titleList
+  видалити вміст titleList */
   const titleList = document.querySelector(optTitleListSelector);
   titleList.innerHTML = '';
   
-  /* for each article */
+  /* for each article
+  для кожної статті */
   const allArticles = document.querySelectorAll(optArticleSelector);
   let html = '';
   for(let article of allArticles){
-      /* get the article id */
-      const articleId = article.getAttribute('id')
-      console.log (articleId);
-      /* find the title element */
-      /* get the title from the title element */
-      const articleTitle = article.querySelector(optTitleSelector).innerHTML;
-      console.log (articleTitle);
-       /* create HTML of the link */
-      const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
-      console.log (linkHTML);
-      /* insert link into titleList */
-      html = html + linkHTML;
-      
-    }
-    console.log (html);
-    titleList.innerHTML = html;
-
-
-    /*Відновлення функціональності клацання посилань */
-    const links = document.querySelectorAll('.titles a');
-    for(let link of links){
-      link.addEventListener('click', titleClickHandler);
-    }
+    /* get the article id
+    отримати ідентифікатор статті*/
+    const articleId = article.getAttribute('id');
+    console.log (articleId);
+    /* find the title element
+    знайти title*/
+    /* get the title from the title element 
+    отримати назву з елемента title*/
+    const articleTitle = article.querySelector(optTitleSelector).innerHTML;
+    console.log (articleTitle);
+    /* create HTML of the link
+    створити HTML посилання */
+    const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
+    console.log (linkHTML);
+    /* insert link into titleList
+    вставити посилання в titleList */
+    html = html + linkHTML;  
   }
+  console.log (html);
+  titleList.innerHTML = html;
+
+  /*Відновлення функціональності клацання посилань */
+  const links = document.querySelectorAll('.titles a');
+  for(let link of links){
+    link.addEventListener('click', titleClickHandler);
+  }
+}
 generateTitleLinks();
 
 
@@ -110,32 +115,32 @@ function generateTags(){
   ПОЧАТОК ЦИКЛУ: для кожної статті:*/
   
 
-    /* find tags wrapper
-    обгортка пошуку тегів*/
+  /* find tags wrapper
+  обгортка пошуку тегів*/
 
-    /* make html variable with empty string
+  /* make html variable with empty string
     створити змінну html із порожнім рядком */
 
-    /* get tags from data-tags attribute
-    отримати теги з атрибута data-tags*/
+  /* get tags from data-tags attribute
+  отримати теги з атрибута data-tags*/
 
-    /* split tags into array 
+  /* split tags into array 
     розділити теги на масив*/
 
-    /* START LOOP: for each tag
-    START LOOP: для кожного тегу */
+  /* START LOOP: for each tag
+  START LOOP: для кожного тегу */
 
-      /* generate HTML of the link 
-      створити HTML посилання*/
+  /* generate HTML of the link 
+  створити HTML посилання*/
 
-      /* add generated code to html variable
-      додати згенерований код до змінної html */
+  /* add generated code to html variable
+  додати згенерований код до змінної html */
 
-    /* END LOOP: for each tag 
-    ЗАКІНЧИТИ ЦИКЛ: для кожного тегу*/
+  /* END LOOP: for each tag 
+  ЗАКІНЧИТИ ЦИКЛ: для кожного тегу*/
 
-    /* insert HTML of all the links into the tags wrapper
-    вставте HTML усіх посилань у оболонку тегів */
+  /* insert HTML of all the links into the tags wrapper
+  вставте HTML усіх посилань у оболонку тегів */
 
   /* END LOOP: for every article: 
   ЗАКІНЧИТИ ЦИКЛ:  для кожної статті:*/
