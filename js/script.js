@@ -77,22 +77,22 @@ function generateTitleLinks(){
     /* get the article id
     отримати ідентифікатор статті*/
     const articleId = article.getAttribute('id');
-    console.log (articleId);
+    // console.log (articleId);
     /* find the title element
     знайти title*/
     /* get the title from the title element 
     отримати назву з елемента title*/
     const articleTitle = article.querySelector(optTitleSelector).innerHTML;
-    console.log (articleTitle);
+    // console.log (articleTitle);
     /* create HTML of the link
     створити HTML посилання */
     const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
-    console.log (linkHTML);
+    // console.log (linkHTML);
     /* insert link into titleList
     вставити посилання в titleList */
     html = html + linkHTML;  
   }
-  console.log (html);
+  // console.log (html);
   titleList.innerHTML = html;
 
   /*Відновлення функціональності клацання посилань */
@@ -110,42 +110,49 @@ generateTitleLinks();
 function generateTags(){
   /* find all articles 
   знайти всі статті*/
-
-  /* START LOOP: for every article: 
+  const allArticles = document.querySelectorAll(optArticleSelector);
+ 
+    /* START LOOP: for every article: 
   ПОЧАТОК ЦИКЛУ: для кожної статті:*/
+    for(let article of allArticles){
+    // html = html + linkHTML;  
   
-
   /* find tags wrapper
-  обгортка пошуку тегів*/
-
-  /* make html variable with empty string
+    обгортка пошуку тегів*/
+    const tagList = article.querySelector(optArticleTagsSelector);
+    console.log (tagList);
+    /* make html variable with empty string
     створити змінну html із порожнім рядком */
-
+    let html = '';
   /* get tags from data-tags attribute
-  отримати теги з атрибута data-tags*/
-
-  /* split tags into array 
+    отримати теги з атрибута data-tags*/
+    const articleTags = article.getAttribute('data-tags');
+    console.log ('my articleTags', articleTags);
+    /* split tags into array 
     розділити теги на масив*/
-
-  /* START LOOP: for each tag
-  START LOOP: для кожного тегу */
-
-  /* generate HTML of the link 
-  створити HTML посилання*/
-
-  /* add generated code to html variable
-  додати згенерований код до змінної html */
-
-  /* END LOOP: for each tag 
-  ЗАКІНЧИТИ ЦИКЛ: для кожного тегу*/
-
-  /* insert HTML of all the links into the tags wrapper
-  вставте HTML усіх посилань у оболонку тегів */
-
+    const articleTagsArray = articleTags.split(' ');
+    console.log ('articleTagsArray', articleTagsArray);
+     /* START LOOP: for each tag
+    START LOOP: для кожного тегу */
+    for(let tag of articleTagsArray) {
+      /* generate HTML of the link 
+      створити HTML посилання*/
+      const tagHTML = '<li><a href="#tag-'+ tag + '">' + tag + ' </a></li> ';
+      /* add generated code to html variable
+      додати згенерований код до змінної html */
+      html = html + tagHTML;
+      /* END LOOP: for each tag 
+    ЗАКІНЧИТИ ЦИКЛ: для кожного тегу*/ 
+    }
+    console.log ('my tagHtml', html)
+    /* insert HTML of all the links into the tags wrapper
+    вставте HTML усіх посилань у оболонку тегів */
+    tagList.innerHTML = html;
   /* END LOOP: for every article: 
-  ЗАКІНЧИТИ ЦИКЛ:  для кожної статті:*/
+    ЗАКІНЧИТИ ЦИКЛ:  для кожної статті:*/
+  }
 }
-
 generateTags();
+
 
 
