@@ -59,7 +59,8 @@ function titleClickHandler(event){
 const optArticleSelector = '.post',
   optTitleSelector = '.post-title',
   optTitleListSelector = '.titles',
-  optArticleTagsSelector = '.post-tags .list';
+  optArticleTagsSelector = '.post-tags .list',
+  optArticleAuthorSelector = '.post-author';
 
 
 function generateTitleLinks(customSelector = ''){
@@ -221,3 +222,20 @@ function addClickListenersToTags(){
 addClickListenersToTags();
 
 
+
+function generateAuthors(){
+  /* find all articles 
+  знайти всі статті*/
+  const allArticles = document.querySelectorAll(optArticleSelector);
+    for(let article of allArticles){
+      const authorList = article.querySelector(optArticleAuthorSelector);
+      let html = '';
+      const authorTags = article.getAttribute('data-author');
+      const authorHTML = 'By ' + '<a href="#'+ authorTags + '">' + authorTags + '</a>';
+      /* add generated code to html variable
+      додати згенерований код до змінної html */
+      html = html + authorHTML;
+      authorList.innerHTML = html;
+    }
+}
+generateAuthors();
