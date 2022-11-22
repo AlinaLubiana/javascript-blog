@@ -115,33 +115,33 @@ function generateTags(){
     for(let article of allArticles){
     // html = html + linkHTML;  
   
-  /* find tags wrapper
-    обгортка пошуку тегів*/
-    const tagList = article.querySelector(optArticleTagsSelector);
-    // console.log (tagList);
-    /* make html variable with empty string
-    створити змінну html із порожнім рядком */
-    let html = '';
-  /* get tags from data-tags attribute
-    отримати tags з атрибута data-tags*/
-    const articleTags = article.getAttribute('data-tags');
-    // console.log ('my articleTags', articleTags);
-    /* split tags into array 
-    розділити теги на масив*/
-    const articleTagsArray = articleTags.split(' ');
-    // console.log ('articleTagsArray', articleTagsArray);
-     /* START LOOP: for each tag
-    START LOOP: для кожного тегу */
-    for(let tag of articleTagsArray) {
-      /* generate HTML of the link 
-      створити HTML посилання*/
-      const tagHTML = '<li><a href="#tag-'+ tag + '">' + tag + ' </a></li> ';
-      /* add generated code to html variable
-      додати згенерований код до змінної html */
-      html = html + tagHTML;
-      /* END LOOP: for each tag 
-    ЗАКІНЧИТИ ЦИКЛ: для кожного тегу*/ 
-    }
+      /* find tags wrapper
+      обгортка пошуку тегів*/
+      const tagList = article.querySelector(optArticleTagsSelector);
+      // console.log (tagList);
+      /* make html variable with empty string
+      створити змінну html із порожнім рядком */
+      let html = '';
+    /* get tags from data-tags attribute
+      отримати tags з атрибута data-tags*/
+      const articleTags = article.getAttribute('data-tags');
+      // console.log ('my articleTags', articleTags);
+      /* split tags into array 
+      розділити теги на масив*/
+      const articleTagsArray = articleTags.split(' ');
+      // console.log ('articleTagsArray', articleTagsArray);
+      /* START LOOP: for each tag
+      START LOOP: для кожного тегу */
+      for(let tag of articleTagsArray) {
+        /* generate HTML of the link 
+        створити HTML посилання*/
+        const tagHTML = '<li><a href="#tag-'+ tag + '">' + tag + ' </a></li> ';
+        /* add generated code to html variable
+        додати згенерований код до змінної html */
+        html = html + tagHTML;
+        /* END LOOP: for each tag 
+      ЗАКІНЧИТИ ЦИКЛ: для кожного тегу*/ 
+      }
     // console.log ('my tagHtml', html)
     /* insert HTML of all the links into the tags wrapper
     вставте HTML усіх посилань у оболонку тегів */
@@ -164,7 +164,7 @@ function tagClickHandler(event){
   /* make a new constant "href" and read the attribute "href" of the clicked element
   створіть нову константу "href" і прочитайте атрибут "href" клацнутого елемента */
   const href = clickedElement.getAttribute('href');
-  console.log ('aaaaa', href);
+  // console.log ('aaaaa', href);
 
   /* make a new constant "tag" and extract tag from the "href" constant
   створіть нову константу "tag" і витягніть тег із константи "href". */
@@ -224,18 +224,33 @@ addClickListenersToTags();
 
 
 function generateAuthors(){
-  /* find all articles 
-  знайти всі статті*/
+  // на основі generateTags
   const allArticles = document.querySelectorAll(optArticleSelector);
     for(let article of allArticles){
       const authorList = article.querySelector(optArticleAuthorSelector);
       let html = '';
       const authorTags = article.getAttribute('data-author');
-      const authorHTML = 'By ' + '<a href="#'+ authorTags + '">' + authorTags + '</a>';
-      /* add generated code to html variable
-      додати згенерований код до змінної html */
+      const authorHTML = 'By ' + '<a href="'+ authorTags + '">' + authorTags + '</a>';
       html = html + authorHTML;
       authorList.innerHTML = html;
     }
 }
 generateAuthors();
+
+
+function authorClickHandler(event){
+  event.preventDefault();
+  const clickedElement = this;
+  const href = clickedElement.getAttribute('href');
+  console.log ('author href', href);
+  generateTitleLinks('[data-author="' + href + '"]');
+}
+
+function addClickListenersToAuthors(){
+  // на основі addClickListenersToTags
+  const tagLinks = document.querySelectorAll('.post-author a');
+  for(let tLink of tagLinks){
+    tLink.addEventListener('click', authorClickHandler);
+  }
+}
+addClickListenersToAuthors();
