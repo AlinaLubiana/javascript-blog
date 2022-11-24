@@ -60,7 +60,8 @@ const optArticleSelector = '.post',
   optTitleSelector = '.post-title',
   optTitleListSelector = '.titles',
   optArticleTagsSelector = '.post-tags .list',
-  optArticleAuthorSelector = '.post-author';
+  optArticleAuthorSelector = '.post-author',
+  optTagsListSelector = '.tags .list';
 
 
 function generateTitleLinks(customSelector = ''){
@@ -254,3 +255,79 @@ function addClickListenersToAuthors(){
   }
 }
 addClickListenersToAuthors();
+
+
+
+function generateTagsList(){
+  /* DONE [NEW] create a new variable allTags with an empty object
+  створити нову змінну allTags з порожнім об'єктом */
+  let allTags = {};
+  /* find all articles
+  знайти всі статті */
+  const allArticles = document.querySelectorAll(optTagsListSelector);
+  /* START LOOP: for every article: 
+                для кожної статті:*/
+    for(let article of allArticles){
+    /* find tags wrapper 
+    знайти теги для кожної статті*/
+    const tagList = article.querySelector(optArticleTagsSelector);
+    /* make html variable with empty string
+    створити змінну html із порожнім рядком */
+    let html = '';
+    /* get tags from data-tags attribute
+    отримати теги з атрибута data-tags */
+    const articleTags = article.getAttribute('data-tags');
+    /* split tags into array
+    розділити теги на масив */
+    const articleTagsArray = articleTags.split(' ');
+    /* START LOOP: for each tag
+                  для кожного тегу */
+      for(let tag of articleTagsArray) {
+      /* generate HTML of the link 
+      Для кожного з цих тегів генерується HTML-код посилання*/
+      const tagHTML = '<li><a href="#tag-'+ tag + '">' + tag + ' </a></li> ';
+      /* add generated code to html variable 
+      додати згенерований код до змінної html*/
+      html = html + tagHTML;
+        /* DONE [NEW] check if this link is NOT already in allTags 
+        Перевіряємо, чи це посилання вже є в таблиці allTags*/
+        if (!allTags.hasOwnProperty(tag)) {
+          /* DONE [NEW] add tag to allTags object 
+          додати теги до allTags об'єкту*/
+          allTags[tag] = 1;
+        } else {
+          allTags[tag]++;
+        }  
+      /* END LOOP: for each tag
+                для кожного тегу */
+      }
+    /* insert HTML of all the links into the tags wrapper
+    вставте HTML усіх посилань у оболонку тегів */
+    tagList.innerHTML = html;
+  /* END LOOP: for every article:
+              для кожної статті: */
+    }
+  /* [NEW] find list of tags in right column 
+  У кінці функції знаходимо список тегів*/
+  const tagList = document.querySelector(optTagsListSelector);
+
+  /* [NEW] add html from allTags to tagList 
+  додаємо до нього всі посилання з масиву allTagsLinks, з'єднуючи їх пробілами*/
+  // tagList.innerHTML = allTags.join(' ');
+  // console.log('allTags12222', allTags);
+
+  /* ЗАЛІНЧИЛА ТУТ Знаходження граничної кількості випадків
+  [NEW] create variable for all links HTML code */
+  const tagsParams = calculateTagsParams(allTags);
+  console.log('tagsParams', tagsParams)
+  let allTagsHTML = '';
+
+  /* [NEW] START LOOP: for each tag in allTags: */
+  for(let tag in allTags){
+    /* [NEW] ganerate code of a link and it to allTagsHTML */
+    allTagsHTML += tag + ' (' + allTags[tag] + ') ';
+  /* [NEW] END LOOP: for each tag in allTags: */
+  }
+  /* [NEW] add html from allTagsHTML to tagList */
+  tagList.innerHTML = allTagsHTML;
+}
