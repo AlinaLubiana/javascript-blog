@@ -181,9 +181,10 @@ function generateTags(){
   }
   // console.log(allTagsHTML);
   /* [NEW] END LOOP: for eash tag in allTags: */
-}
+
   /* [!!!!!!!!!!!!!!! don't working NEW] add html from allTagsHTML to tagList */
   tagList.innerHTML = allTagsHTML;
+}
 
 generateTags();
 
