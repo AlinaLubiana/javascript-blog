@@ -61,7 +61,9 @@ const optArticleSelector = '.post',
   optTitleListSelector = '.titles',
   optArticleTagsSelector = '.post-tags .list',
   optArticleAuthorSelector = '.post-author',
-  optTagsListSelector = '.tags.list';
+  optTagsListSelector = '.tags.list',
+  optCloudClassCount = 5,
+  optCloudClassPrefix = 'tag-size-';
   
 
 
@@ -171,19 +173,48 @@ function generateTags(){
   /* [NEW] add html from allTags to tagList */
   // tagList.innerHTML = allTags.join(' ');
   // console.log(allTags);
+  const tagsParams = calculateTagsParams(allTags);
+  // console.log('AllTags', allTags);
+  // console.log('tagsParams:', tagsParams)
+  
   /* [NEW] create variable for all links HTML code */
   let allTagsHTML = '';
 
   /* [NEW] START LOOP: for eash tag in allTadsHTML */
   for(let tag in allTags){
     /*[NEW] generate code of a link and add it to allTagsHTML */
-    allTagsHTML += '<li><a href="#tag-'+ tag + '">' + tag + ' (' + allTags[tag] + ') ' +' </a></li> ';
+    console.log('LOG calc', tag, calculateTagClass(allTags[tag], tagsParams));
+    allTagsHTML += '<li><a class="'+ optCloudClassPrefix + calculateTagClass(allTags[tag], tagsParams) + '" href="#tag-'+ tag + '">' + tag + ' (' + allTags[tag] + ') ' +' </a></li> ';
    
-  // console.log(allTagsHTML);
+  console.log(allTagsHTML);
   /* [NEW] END LOOP: for eash tag in allTags: */
   }
   /* [NEW] add html from allTagsHTML to tagList */
   tagList.innerHTML = allTagsHTML;
+}
+
+function calculateTagsParams(tags){
+  var params = { min: 99999, max: 0};
+  for(let tag in tags){
+    if(tags[tag] > params.max){
+      params.max = tags[tag];
+    }
+    if(tags[tag] < params.min){
+      params.min = tags[tag];
+    }
+    // console.log('max', params.max);    
+    // console.log('min', params.min);
+
+  }
+  return params;
+}
+
+function calculateTagClass(count, params){
+  const normalizedCount = count - params.min;
+  const normalizedMax = params.max - params.min;
+  const percentage = normalizedCount / normalizedMax;
+  const classNumber = Math.floor( percentage * (optCloudClassCount - 1) + 1 );
+  return classNumber
 }
 
 generateTags();
@@ -208,7 +239,7 @@ function tagClickHandler(event){
   /* make a new constant "tag" and extract tag from the "href" constant
   створіть нову константу "tag" і витягніть тег із константи "href". */
   const tag = href.replace('#tag-', '');
-  console.log ('bbbbbb', tag);
+  // console.log ('bbbbbb', tag);
 
   /* find all tag links with class active
   знайти всі посилання на теги з активним класом */
@@ -217,7 +248,7 @@ function tagClickHandler(event){
   /* START LOOP: for each active tag link
   START LOOP: для кожного активного посилання тегу */
   for(let aTag of activeTags){
-    console.log ('activeTags11', aTag);
+    // console.log ('activeTags11', aTag);
     /* remove class active
     видалити активний клас */
     aTag.classList.remove('active');
@@ -228,7 +259,7 @@ function tagClickHandler(event){
   /* find all tag links with "href" attribute equal to the "href" constant
   знайти всі посилання тегів з атрибутом "href", що дорівнює константі "href". */
   const allHrefLinks = document.querySelectorAll('a[href="' + href + '"]');
-  console.log ('allHrefLinks', allHrefLinks);
+  // console.log ('allHrefLinks', allHrefLinks);
   /* START LOOP: for each found tag link
   START LOOP: для кожного знайденого посилання тегу */
   for(let hrefLink of allHrefLinks){
@@ -246,7 +277,7 @@ function tagClickHandler(event){
 function addClickListenersToTags(){
   /* find all links to tags
   знайти всі посилання на теги */
-  const tagLinks = document.querySelectorAll('.list-horizontal a');
+  const tagLinks = document.querySelectorAll('.list a');
   /* START LOOP: for each link
   START LOOP: для кожного посилання */
   for(let tLink of tagLinks){
