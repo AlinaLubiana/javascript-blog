@@ -178,12 +178,12 @@ function generateTags(){
   /* [NEW] START LOOP: for eash tag in allTadsHTML */
   for(let tag in allTags){
     /*[NEW] generate code of a link and add it to allTagsHTML */
-    allTagsHTML += tag + ' (' + allTags[tag] + ') ';
-  }
+    allTagsHTML += '<li><a href="#tag-'+ tag + '">' + tag + ' (' + allTags[tag] + ') ' +' </a></li> ';
+   
   // console.log(allTagsHTML);
   /* [NEW] END LOOP: for eash tag in allTags: */
-
-  /* [!!!!!!!!!!!!!!! don't working NEW] add html from allTagsHTML to tagList */
+  }
+  /* [NEW] add html from allTagsHTML to tagList */
   tagList.innerHTML = allTagsHTML;
 }
 
