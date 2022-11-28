@@ -171,7 +171,6 @@ function generateTags(){
   /* [NEW] add html from allTags to tagList */
   // tagList.innerHTML = allTags.join(' ');
   // console.log(allTags);
-
   /* [NEW] create variable for all links HTML code */
   let allTagsHTML = '';
 
