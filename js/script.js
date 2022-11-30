@@ -63,7 +63,9 @@ const optArticleSelector = '.post',
   optArticleAuthorSelector = '.post-author',
   optTagsListSelector = '.tags.list',
   optCloudClassCount = 5,
-  optCloudClassPrefix = 'tag-size-';
+  optCloudClassPrefix = 'tag-size-',
+  optAuthorsListSelector = '.list.authors';
+  
   
 
 
@@ -144,6 +146,7 @@ function generateTags(){
         /* generate HTML of the link 
         створити HTML посилання*/
         const tagHTML = '<li><a href="#tag-'+ tag + '">' + tag + ' </a></li> ';
+        console.log ('что тут видно? ', tagHTML);
         /* add generated code to html variable
         додати згенерований код до змінної html */
         html = html + tagHTML;
