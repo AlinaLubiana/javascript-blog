@@ -20,7 +20,7 @@ function titleClickHandler(event){
   додайте клас «активний» до натиснутого посилання */
 
   clickedElement.classList.add('active');
-  console.log('clickedElement:', clickedElement);
+  // console.log('clickedElement:', clickedElement);
   
 
   /* [DONE] remove class 'active' from all articles
@@ -36,14 +36,14 @@ function titleClickHandler(event){
   /* [DONE] get 'href' attribute from the clicked link
   отримати атрибут 'href' за натиснутим посиланням */
   const articleSelector = clickedElement.getAttribute('href');
-  console.log ('my articleSelectors', clickedElement.getAttribute('href'));
+  // console.log ('my articleSelectors', clickedElement.getAttribute('href'));
 
 
   /* [DONE] find the correct article using the selector (value of 'href' attribute)
   знайти правильну статтю за допомогою селектора (значення атрибута 'href') */
 
   const targetArticle = document.querySelector(articleSelector);
-  console.log ('my targetArticle', targetArticle);
+  // console.log ('my targetArticle', targetArticle);
  
  
   /* [DONE]  add class 'active' to the correct article
@@ -143,10 +143,11 @@ function generateTags(){
       /* START LOOP: for each tag
       START LOOP: для кожного тегу */
       for(let tag of articleTagsArray) {
+        
         /* generate HTML of the link 
         створити HTML посилання*/
         const tagHTML = '<li><a href="#tag-'+ tag + '">' + tag + ' </a></li> ';
-        console.log ('что тут видно? ', tagHTML);
+        // console.log ('что тут видно? ', tagHTML);
         /* add generated code to html variable
         додати згенерований код до змінної html */
         html = html + tagHTML;
@@ -186,10 +187,9 @@ function generateTags(){
   /* [NEW] START LOOP: for eash tag in allTadsHTML */
   for(let tag in allTags){
     /*[NEW] generate code of a link and add it to allTagsHTML */
-    console.log('LOG calc', tag, calculateTagClass(allTags[tag], tagsParams));
+    // console.log('LOG calc', tag, calculateTagClass(allTags[tag], tagsParams));
     allTagsHTML += '<li><a class="'+ optCloudClassPrefix + calculateTagClass(allTags[tag], tagsParams) + '" href="#tag-'+ tag + '">' + tag + ' (' + allTags[tag] + ') ' +' </a></li> ';
-   
-  console.log(allTagsHTML);
+  // console.log(allTagsHTML);
   /* [NEW] END LOOP: for eash tag in allTags: */
   }
   /* [NEW] add html from allTagsHTML to tagList */
@@ -281,6 +281,8 @@ function addClickListenersToTags(){
   /* find all links to tags
   знайти всі посилання на теги */
   const tagLinks = document.querySelectorAll('.list a');
+  // const tagLinks = document.querySelectorAll(optArticleTagsSelector);
+  // console.log(tagLinks);
   /* START LOOP: for each link
   START LOOP: для кожного посилання */
   for(let tLink of tagLinks){
@@ -297,25 +299,48 @@ addClickListenersToTags();
 
 
 function generateAuthors(){
-  // на основі generateTags
+  let allAuthots = {}; 
+  let articleAuthorsArray = [];
   const allArticles = document.querySelectorAll(optArticleSelector);
     for(let article of allArticles){
       const authorList = article.querySelector(optArticleAuthorSelector);
       let html = '';
-      const authorTags = article.getAttribute('data-author');
+      const authorTags = article.getAttribute('data-author'); 
+      articleAuthorsArray.push(authorTags)
+      // console.log('authorTags', authorTags);
       const authorHTML = 'By ' + '<a href="'+ authorTags + '">' + authorTags + '</a>';
+      console.log('authorHTML', authorHTML);
       html = html + authorHTML;
       authorList.innerHTML = html;
     }
+
+    for(let author of articleAuthorsArray){
+      // console.log('author', author);
+      if (!allAuthots.hasOwnProperty(author)) {
+        allAuthots[author] = 1;
+      } else {
+        allAuthots[author]++;
+      }
+    }
+    console.log('author++++', allAuthots);
+    const authorList = document.querySelector(optAuthorsListSelector);
+    let allAuthorHTML = '';
+    for(let author in allAuthots){
+      allAuthorHTML += '<li><a href="'+ author + '">' + author + ' (' + allAuthots[author] + ') ' +'</a></li>';
+      console.log('allAuthorHTML', allAuthorHTML);
+    }
+
+    authorList.innerHTML = allAuthorHTML;
 }
 generateAuthors();
+
 
 
 function authorClickHandler(event){
   event.preventDefault();
   const clickedElement = this;
   const href = clickedElement.getAttribute('href');
-  console.log ('author href', href);
+  // console.log ('author href', href);
   generateTitleLinks('[data-author="' + href + '"]');
 }
 
