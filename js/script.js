@@ -1,5 +1,18 @@
 'use strict';
 
+const opts = {
+  articleSelector: '.post',
+  titleSelector: '.post-title',
+  titleListSelector: '.titles',
+  articleTagsSelector: '.post-tags .list',
+  articleAuthorSelector: '.post-author',
+  tagsListSelector: '.tags.list',
+  cloudClassCount: 5,
+  cloudClassPrefix: 'tag-size-',
+  authorsListSelector: '.list.authors',
+};
+
+
 function titleClickHandler(event){
   event.preventDefault(); /* щоб не змінювалась адреса сайту при натисканні на посиланння */
   const clickedElement = this;
@@ -54,31 +67,27 @@ function titleClickHandler(event){
 }
 
 
-
-
-const optArticleSelector = '.post',
-  optTitleSelector = '.post-title',
-  optTitleListSelector = '.titles',
-  optArticleTagsSelector = '.post-tags .list',
-  optArticleAuthorSelector = '.post-author',
-  optTagsListSelector = '.tags.list',
-  optCloudClassCount = 5,
-  optCloudClassPrefix = 'tag-size-',
-  optAuthorsListSelector = '.list.authors';
+//const   optArticleSelector = '.post',
+  // optTitleSelector = '.post-title',
+  // optTitleListSelector = '.titles',
+  // optArticleTagsSelector = '.post-tags .list',
+  // optArticleAuthorSelector = '.post-author',
+  // optTagsListSelector = '.tags.list',
+  // optCloudClassCount = 5,
+  // optCloudClassPrefix = 'tag-size-',
+  // optAuthorsListSelector = '.list.authors';
   
-  
-
 
 function generateTitleLinks(customSelector = ''){
 
   /* remove contents of titleList
   видалити вміст titleList */
-  const titleList = document.querySelector(optTitleListSelector);
+  const titleList = document.querySelector(opts.titleListSelector);
   titleList.innerHTML = '';
   
   /* for each article
   для кожної статті */
-  const allArticles = document.querySelectorAll(optArticleSelector + customSelector);
+  const allArticles = document.querySelectorAll(opts.articleSelector + customSelector);
   let html = '';
   for(let article of allArticles){
     /* get the article id
@@ -89,7 +98,7 @@ function generateTitleLinks(customSelector = ''){
     знайти title*/
     /* get the title from the title element 
     отримати назву з елемента title*/
-    const articleTitle = article.querySelector(optTitleSelector).innerHTML;
+    const articleTitle = article.querySelector(opts.titleSelector).innerHTML;
     // console.log (articleTitle);
     /* create HTML of the link
     створити HTML посилання */
@@ -118,7 +127,7 @@ function generateTags(){
 
   /* find all articles 
   знайти всі статті*/
-  const allArticles = document.querySelectorAll(optArticleSelector);
+  const allArticles = document.querySelectorAll(opts.articleSelector);
  
     /* START LOOP: for every article: 
     ПОЧАТОК ЦИКЛУ: для кожної статті:*/
@@ -126,7 +135,7 @@ function generateTags(){
     // html = html + linkHTML;  
       /* find tags wrapper
       обгортка пошуку тегів*/
-      const tagList = article.querySelector(optArticleTagsSelector);
+      const tagList = article.querySelector(opts.articleTagsSelector);
       // console.log (tagList);
       /* make html variable with empty string
       створити змінну html із порожнім рядком */
@@ -172,7 +181,7 @@ function generateTags(){
     ЗАКІНЧИТИ ЦИКЛ:  для кожної статті:*/
     }
   /* [NEW] find list of tags in right column */
-  const tagList = document.querySelector(optTagsListSelector);
+  const tagList = document.querySelector(opts.tagsListSelector);
 
   /* [NEW] add html from allTags to tagList */
   // tagList.innerHTML = allTags.join(' ');
@@ -188,7 +197,7 @@ function generateTags(){
   for(let tag in allTags){
     /*[NEW] generate code of a link and add it to allTagsHTML */
     // console.log('LOG calc', tag, calculateTagClass(allTags[tag], tagsParams));
-    allTagsHTML += '<li><a class="'+ optCloudClassPrefix + calculateTagClass(allTags[tag], tagsParams) + '" href="#tag-'+ tag + '">' + tag + ' (' + allTags[tag] + ') ' +' </a></li> ';
+    allTagsHTML += '<li><a class="'+ opts.cloudClassPrefix + calculateTagClass(allTags[tag], tagsParams) + '" href="#tag-'+ tag + '">' + tag + ' (' + allTags[tag] + ') ' +' </a></li> ';
   // console.log(allTagsHTML);
   /* [NEW] END LOOP: for eash tag in allTags: */
   }
@@ -216,13 +225,11 @@ function calculateTagClass(count, params){
   const normalizedCount = count - params.min;
   const normalizedMax = params.max - params.min;
   const percentage = normalizedCount / normalizedMax;
-  const classNumber = Math.floor( percentage * (optCloudClassCount - 1) + 1 );
+  const classNumber = Math.floor( percentage * (opts.cloudClassCount - 1) + 1 );
   return classNumber
 }
 
 generateTags();
-
-
 
 
 function tagClickHandler(event){
@@ -277,6 +284,7 @@ function tagClickHandler(event){
   generateTitleLinks('[data-tags~="' + tag + '"]');
 }
 
+
 function addClickListenersToTags(){
   /* find all links to tags
   знайти всі посилання на теги */
@@ -297,13 +305,12 @@ function addClickListenersToTags(){
 addClickListenersToTags();
 
 
-
 function generateAuthors(){
   let allAuthots = {}; 
   let articleAuthorsArray = [];
-  const allArticles = document.querySelectorAll(optArticleSelector);
+  const allArticles = document.querySelectorAll(opts.articleSelector);
     for(let article of allArticles){
-      const authorList = article.querySelector(optArticleAuthorSelector);
+      const authorList = article.querySelector(opts.articleAuthorSelector);
       let html = '';
       const authorTags = article.getAttribute('data-author'); 
       articleAuthorsArray.push(authorTags)
@@ -323,7 +330,7 @@ function generateAuthors(){
       }
     }
     console.log('author++++', allAuthots);
-    const authorList = document.querySelector(optAuthorsListSelector);
+    const authorList = document.querySelector(opts.authorsListSelector);
     let allAuthorHTML = '';
     for(let author in allAuthots){
       allAuthorHTML += '<li><a href="'+ author + '">' + author + ' (' + allAuthots[author] + ') ' +'</a></li>';
@@ -333,7 +340,6 @@ function generateAuthors(){
     authorList.innerHTML = allAuthorHTML;
 }
 generateAuthors();
-
 
 
 function authorClickHandler(event){
