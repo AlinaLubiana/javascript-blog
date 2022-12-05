@@ -81,6 +81,8 @@ function titleClickHandler(event){
   // optAuthorsListSelector = '.list.authors';
   
 
+  
+
 function generateTitleLinks(customSelector = ''){
 
   /* remove contents of titleList
