@@ -324,7 +324,7 @@ function generateAuthors(){
       articleAuthorsArray.push(authorTags)
       // console.log('authorTags', authorTags);
       const authorHTML = 'By ' + '<a href="'+ authorTags + '">' + authorTags + '</a>';
-      console.log('authorHTML', authorHTML);
+      // console.log('authorHTML', authorHTML);
       html = html + authorHTML;
       authorList.innerHTML = html;
     }
